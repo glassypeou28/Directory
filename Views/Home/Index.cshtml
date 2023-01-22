@@ -1,0 +1,248 @@
+﻿@model Project.Models.Employees
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-warning" role="alert">@TempData["Error"].ToString()</div>
+    }
+
+    <h1 class="display-4">Welcome</h1>
+    <p>Directory of Employees</p>
+
+
+    <div class="row justify-content-md-center">
+        <div class="col-xl-10 col-lg-12 col-md-12">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link @if (ViewBag.TabIndex == 0) { @Html.Raw("active") }" id="tab-finance" data-toggle="tab" href="#tab-finance-content" role="tab" aria-controls="tab-finance-content" aria-selected="@if (ViewBag.TabIndex == 0) { @Html.Raw("true") } else { @Html.Raw("false") }">Finance</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if (ViewBag.TabIndex == 1) { @Html.Raw("active") }" id="tab-marketing" data-toggle="tab" href="#tab-marketing-content" role="tab" aria-controls="tab-marketing-content" aria-selected="@if (ViewBag.TabIndex == 1) { @Html.Raw("true") } else { @Html.Raw("false") }">Marketing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if (ViewBag.TabIndex == 2) { @Html.Raw("active") }" id="tab-operations-management" data-toggle="tab" href="#tab-operations-management-content" role="tab" aria-controls="tab-operations-management-content" aria-selected="@if (ViewBag.TabIndex == 2) { @Html.Raw("true") } else { @Html.Raw("false") }">Operations Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if (ViewBag.TabIndex == 3) { @Html.Raw("active") }" id="tab-human-resources" data-toggle="tab" href="#tab-human-resources-content" role="tab" aria-controls="tab-human-resources-content" aria-selected="@if (ViewBag.TabIndex == 3) { @Html.Raw("true") } else { @Html.Raw("false") }">Human Resources</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if (ViewBag.TabIndex == 4) { @Html.Raw("active") }" id="tab-information-technology" data-toggle="tab" href="#tab-information-technology-content" role="tab" aria-controls="tab-information-technology-content" aria-selected="@if (ViewBag.TabIndex == 4) { @Html.Raw("true") } else { @Html.Raw("false") }">Information Technology</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <br />
+                <div class="tab-pane fade @if (ViewBag.TabIndex == 0) { @Html.Raw("show active") }" id="tab-finance-content" role="tabpanel" aria-labelledby="tab-finance">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table id="datatable0" class="display nowrap table table-striped table-bordered table-sm text-center small" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>LastName</th>
+                                            <th>FirstName</th>
+                                            <th>Division/Department</th>
+                                            <th>Title</th>
+                                            <th>Email</th>
+                                            <th>Phone1</th>
+                                            <th>Phone2</th>
+                                            <th>Extension</th>
+                                            <th>Notes/Comments</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.DS1.Where(x => x.DivDept == "Finance"))
+                                        {
+                                            <tr>
+                                                <td>@item.LastName</td>
+                                                <td>@item.FirstName</td>
+                                                <td>@item.DivDept</td>
+                                                <td>@item.PersonType</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.Phone1</td>
+                                                <td>@item.Phone2</td>
+                                                <td>@item.Ext</td>
+                                                <td>@item.Notes</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade @if (ViewBag.TabIndex == 1) { @Html.Raw("show active") }" id="tab-marketing-content" role="tabpanel" aria-labelledby="tab-marketing">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table id="datatable1" class="display nowrap table table-striped table-bordered table-sm text-center small" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>LastName</th>
+                                            <th>FirstName</th>
+                                            <th>Division/Department</th>
+                                            <th>Title</th>
+                                            <th>Email</th>
+                                            <th>Phone1</th>
+                                            <th>Phone2</th>
+                                            <th>Extension</th>
+                                            <th>Notes/Comments</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.DS1.Where(x => x.DivDept == "Marketing"))
+                                        {
+                                            <tr>
+                                                <td>@item.LastName</td>
+                                                <td>@item.FirstName</td>
+                                                <td>@item.DivDept</td>
+                                                <td>@item.PersonType</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.Phone1</td>
+                                                <td>@item.Phone2</td>
+                                                <td>@item.Ext</td>
+                                                <td>@item.Notes</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade @if (ViewBag.TabIndex == 2) { @Html.Raw("show active") }" id="tab-operations-management-content" role="tabpanel" aria-labelledby="tab-operations-management">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table id="datatable2" class="display nowrap table table-striped table-bordered table-sm text-center small" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>LastName</th>
+                                            <th>FirstName</th>
+                                            <th>Division/Department</th>
+                                            <th>Title</th>
+                                            <th>Email</th>
+                                            <th>Phone1</th>
+                                            <th>Phone2</th>
+                                            <th>Extension</th>
+                                            <th>Notes/Comments</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.DS1.Where(x => x.DivDept == "Operations Management"))
+                                        {
+                                            <tr>
+                                                <td>@item.LastName</td>
+                                                <td>@item.FirstName</td>
+                                                <td>@item.DivDept</td>
+                                                <td>@item.PersonType</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.Phone1</td>
+                                                <td>@item.Phone2</td>
+                                                <td>@item.Ext</td>
+                                                <td>@item.Notes</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade @if (ViewBag.TabIndex == 3) { @Html.Raw("show active") }" id="tab-human-resources-content" role="tabpanel" aria-labelledby="tab-human-resources">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table id="datatable3" class="display nowrap table table-striped table-bordered table-sm text-center small" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>LastName</th>
+                                            <th>FirstName</th>
+                                            <th>Division/Department</th>
+                                            <th>Title</th>
+                                            <th>Email</th>
+                                            <th>Phone1</th>
+                                            <th>Phone2</th>
+                                            <th>Extension</th>
+                                            <th>Notes/Comments</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.DS1.Where(x => x.DivDept == "Human Resources"))
+                                        {
+                                            <tr>
+                                                <td>@item.LastName</td>
+                                                <td>@item.FirstName</td>
+                                                <td>@item.DivDept</td>
+                                                <td>@item.PersonType</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.Phone1</td>
+                                                <td>@item.Phone2</td>
+                                                <td>@item.Ext</td>
+                                                <td>@item.Notes</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade @if (ViewBag.TabIndex == 4) { @Html.Raw("show active") }" id="tab-information-technology-content" role="tabpanel" aria-labelledby="tab-information-technology">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table id="datatable4" class="display nowrap table table-striped table-bordered table-sm text-center small" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>LastName</th>
+                                            <th>FirstName</th>
+                                            <th>Division/Department</th>
+                                            <th>Title</th>
+                                            <th>Email</th>
+                                            <th>Phone1</th>
+                                            <th>Phone2</th>
+                                            <th>Extension</th>
+                                            <th>Notes/Comments</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.DS1.Where(x => x.DivDept == "Information Technology"))
+                                        {
+                                            <tr>
+                                                <td>@item.LastName</td>
+                                                <td>@item.FirstName</td>
+                                                <td>@item.DivDept</td>
+                                                <td>@item.PersonType</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.Phone1</td>
+                                                <td>@item.Phone2</td>
+                                                <td>@item.Ext</td>
+                                                <td>@item.Notes</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#datatable0').DataTable();
+        $('#datatable1').DataTable();
+        $('#datatable2').DataTable();
+        $('#datatable3').DataTable();
+        $('#datatable4').DataTable();
+    });
+</script>

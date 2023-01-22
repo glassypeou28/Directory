@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<!doctype html>
+
+<html>
+<body class="text-center">
+    @using (Html.BeginForm("Index", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+    {
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-warning" role="alert">@TempData["Error"].ToString()</div>
+        }
+
+        <h1 class="h3 mb-3 font-weight-normal">Please log in</h1>
+        <label for="input-username" class="sr-only">Username</label>
+        <input type="text" id="input-username" name="Username" style="width: 330px; margin:auto" class="form-control" placeholder="Username" required autofocus>
+        <label for="input-password" class="sr-only">Password</label>
+        <input type="password" id="input-password" name="Password" style="width: 330px; margin: auto" class="form-control" placeholder="Password" required>
+        <br />
+        <button class="btn btn-lg btn-primary btn-block" style="width: 330px; margin: auto" type="submit">Log In</button>
+    }
+</body>
+</html>

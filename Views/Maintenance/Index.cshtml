@@ -1,0 +1,259 @@
+﻿@model Project.ViewModels.Maintenance.MaintenanceViewModel
+
+@{
+    ViewData["Title"] = "Maintenance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-warning" role="alert">@TempData["Error"].ToString()</div>
+    }
+
+    <h1 class="display-4">Maintenance</h1>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <h4 class="col-md-10 text-left">Employees</h4>
+                <button class="col-md-2 text-center" data-toggle="modal" data-target="#modal-edit-add-person">Add Employee</button>
+            </div>
+            <div class="table-responsive">
+                <table id="datatable1" class="display nowrap table table-striped table-bordered table-sm text-center small" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>LastName</th>
+                            <th>FirstName</th>
+                            <th>Division/Department</th>
+                            <th>Title</th>
+                            <th>Email</th>
+                            <th>Phone1</th>
+                            <th>Phone2</th>
+                            <th>Extension</th>
+                            <th>Notes/Comments</th>
+                            <th>LoginName</th>
+                            <th>Password</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.EmployeeList.DS1.OrderBy(x => x.LastName).OrderBy(x => x.DivDept))
+                        {
+                            <tr data-id="@item.PersonID" data-toggle="modal" data-target="#modal-edit-add-person" style="cursor:pointer">
+                                <td>@item.LastName</td>
+                                <td>@item.FirstName</td>
+                                <td>@item.DivDept</td>
+                                <td>@item.PersonType</td>
+                                <td>@item.Email</td>
+                                <td>@item.Phone1</td>
+                                <td>@item.Phone2</td>
+                                <td>@item.Ext</td>
+                                <td>@item.Notes</td>
+                                <td>@item.LoginName</td>
+                                <td>@item.Password</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-edit-add-person" tabindex="-1" role="dialog" aria-labelledby="modal-edit-add-person-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-edit-add-person-label">Employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("EditAdd", "Maintenance", FormMethod.Post))
+            {
+                <input type="hidden" id="input-person-id" name="PersonID" />
+                <input type="hidden" id="input-person-savetype" name="SaveType" />
+                <div class="row justify-content-md-center mt-4">
+                    <div class="col-xl-10 col-lg-10 col-md-10">
+                        <div class="form-group">
+                            <label for="input-first-name">First Name <span class="required-text">*</span></label>
+                            <input class="form-control" id="input-first-name" name="FirstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-last-name">Last Name <span class="required-text">*</span></label>
+                            <input class="form-control" id="input-last-name" name="LastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-division-dept">Division/Department</label>
+                            <select class="selectpicker" id="input-division-dept" name="DivisionDepartment">
+                                <option selected>Choose...</option>
+                                @foreach (var item in Model.DivDeptList.OrderBy(x => x.Name))
+                                {
+                                    <option>@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-emailaddress">EmailAddress</label>
+                            <input class="email form-control" type="email" id="input-emailaddress" name="EmailAddress">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-phone1">Phone1</label>
+                            <input class="form-control" name="Phone1" id="input-phone1" type="text" pattern="\d{10}" title="Error: 10 digits are required." onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode != 48 && event.charCode != 57" />
+                        </div>
+                        <div class="form-group">
+                            <label for="input-phone2">Phone2</label>
+                            <input class="form-control" name="Phone2" id="input-phone2" type="text" pattern="\d{10}" title="Error: 10 digits are required." onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode != 48 && event.charCode != 57" />
+                        </div>
+                        <div class="form-group">
+                            <label for="input-ext">Ext</label>
+                            <input class="form-control" id="input-ext" name="Ext">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-notes-comments">Notes/Comments</label>
+                            <input class="form-control" id="input-notes-comments" name="NotesComments">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-person-type">Employee Type</label>
+                            <select class="selectpicker" id="input-person-type" name="PersonType">
+                                <option selected>Choose...</option>
+                                @foreach (var item in Model.PersonTypeList.OrderBy(x => x.Name))
+                                {
+                                    <option>@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-login-name">Login Name</label>
+                            <input class="form-control" id="input-login-name" name="LoginName">
+                        </div>
+                        <div class="form-group">
+                            <label for="input-password">Password</label>
+                            <input class="form-control" id="input-password" name="Password">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="input-person-delete-button" data-toggle="modal" data-target="#modal-delete-person">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="input-person-button"></button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-delete-person" tabindex="-1" role="dialog" aria-labelledby="modal-delete-person-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-delete-person-label">Are you sure you want to delete this person?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("Delete", "Maintenance", FormMethod.Post))
+            {
+                <input type="hidden" id="input-person-delete-id" name="PersonID" />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary" id="input-pushnet-delete-button">Yes</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#datatable1').DataTable();
+    });
+
+    $('#modal-edit-add-person').on('show.bs.modal', function () {
+        var personID = $('#input-person-id').val();
+        if (personID) {
+            $('#input-person-delete-button').removeAttr('hidden')
+            $('#input-person-button').text('Save');
+            $('#input-person-savetype').val('Save');
+        }
+        else {
+            $('#input-person-delete-button').attr('hidden', '');
+            $('#input-person-button').text('Add');
+            $('#input-person-savetype').val('Add');
+            $('#input-person-id').val('0');
+        }
+    })
+
+    $('#modal-delete-person').on('show.bs.modal', function () {
+        $('#input-person-delete-id').val($('#input-person-id').val());
+    })
+
+    $('#modal-edit-add-person').on('hidden.bs.modal', function () {
+        $('#input-person-id').val('');
+        $('#input-first-name').val('');
+        $('#input-last-name').val('');
+        $("#input-division-dept").selectpicker('val', 'Choose...');
+        $('#input-emailaddress').val('');
+        $('#input-phone1').val('');
+        $('#input-phone2').val('');
+        $('#input-ext').val('');
+        $('#input-notes-comments').val('');
+        $("#input-person-type").selectpicker('val', 'Choose...');
+        $('#input-login-name').val('');
+        $('#input-password').val('');
+    })
+
+    var table = document.getElementById("datatable1");
+    if (table) {
+        for (var i = 0; i < table.rows.length; i++) {
+            table.rows[i].onclick = function () {
+                tableText1(this);
+            };
+        }
+    }
+
+    function tableText1(tableRow) {
+        $('#input-person-id').val($(tableRow).attr("data-id"));
+
+        var lastName = tableRow.childNodes[1].innerHTML;
+        var firstName = tableRow.childNodes[3].innerHTML;
+        var divisionDepartment = tableRow.childNodes[5].innerHTML;
+        var personType = tableRow.childNodes[7].innerHTML;
+        var emailAddress = tableRow.childNodes[9].innerHTML;
+        var phone1 = tableRow.childNodes[11].innerHTML;
+        var phone2 = tableRow.childNodes[13].innerHTML;
+        var ext = tableRow.childNodes[15].innerHTML;
+        var notesComments = tableRow.childNodes[17].innerHTML;
+        var loginName = tableRow.childNodes[19].innerHTML;
+        var password = tableRow.childNodes[21].innerHTML;
+
+        $('#input-first-name').val(firstName);
+        $('#input-last-name').val(lastName);
+
+        if (divisionDepartment == '')
+            $("#input-division-dept").selectpicker('val', 'Choose...');
+        else
+            $("#input-division-dept").selectpicker('val', divisionDepartment);
+
+        $('#input-emailaddress').val(emailAddress);
+        $('#input-phone1').val(phone1);
+        $('#input-phone2').val(phone2);
+        $('#input-ext').val(ext);
+        $('#input-notes-comments').val(notesComments);
+
+        if (personType == '')
+            $("#input-person-type").selectpicker('val', 'Choose...');
+        else
+            $("#input-person-type").selectpicker('val', personType);
+
+        $('#input-login-name').val(loginName);
+        $('#input-password').val(password);
+    }
+
+</script>
+
+<style>
+    .dropdown-toggle {
+        display:none;
+    }
+</style>
